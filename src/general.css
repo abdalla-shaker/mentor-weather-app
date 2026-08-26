@@ -123,3 +123,99 @@ h1 {
 .form-btn:hover {
   background-color: var(--blue--700);
 }
+
+.weather-details-container {
+  max-width: 1440px;
+  padding: 0 1.6rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: 3.2rem;
+}
+
+.today-details-screen {
+  width: 100%;
+  height: 286px;
+  background-color: var(--neutral-700);
+  border-radius: 2.4rem;
+  margin-bottom: 3.2rem;
+}
+
+.details-list {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.details-list--item {
+  width: 100%;
+  background-color: var(--neutral-700);
+  padding: 1.6rem;
+  padding-bottom: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  border-radius: 1.6rem;
+
+  font-size: 1.6rem;
+}
+
+/* --- 01 TYPOGRAPHY SYSTEM
+
+- FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Spacing system (px):
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/
+
+.details-list--item h3,
+.details-list--item output {
+  font-weight: 300;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: "";
+  width: 100px;
+  height: 100%;
+  background: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(48px);
+  /* animation: loading 0.5s ease-in-out infinite alternate; */
+}
+
+@keyframes loading {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
