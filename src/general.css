@@ -125,13 +125,58 @@ h1 {
   background-color: var(--blue--700);
 }
 
+.error-hero {
+  text-align: center;
+  margin-top: 12.8rem;
+}
+
+.error-image {
+  width: 3.6rem;
+}
+
+.error-hero h1 {
+  margin: 1.6rem 0;
+}
+
+.error-hero p {
+  font-size: 1.8rem;
+  color: var(--neutral-200);
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 1.6rem;
+}
+
+.error-hero button {
+  padding: 1rem 1.2rem;
+  display: flex;
+  gap: 1rem;
+  border: none;
+  color: var(--neutral-0);
+  background-color: var(--neutral-800);
+  margin: 0 auto;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.error-hero button:hover {
+  background-color: var(--neutral-700);
+}
+
 .weather-details-container {
   max-width: 1440px;
   padding: 0 1.6rem;
   margin: 0 auto;
+}
+
+.success {
   display: grid;
   grid-template-columns: 2.5fr 1fr;
   gap: 3.2rem;
+}
+
+.no-result-text {
+  text-align: center;
+  font-size: 2.4rem;
 }
 
 .today-details {
@@ -262,7 +307,7 @@ h1 {
   top: 0;
   left: 0;
   filter: blur(48px);
-  animation: loading 0.5s ease-in-out infinite alternate;
+  /* animation: loading 0.5s ease-in-out infinite alternate; */
 }
 
 @keyframes loading {
