@@ -1,3 +1,5 @@
+import useWeather from "../../hooks/useWeather.jsx";
+
 import errorIcon from "../../assets/images/icon-error.svg";
 import retryIcon from "../../assets/images/icon-retry.svg";
 import Aside from "../aside/Aside";
@@ -5,29 +7,39 @@ import Hero from "../hero/Hero";
 import Main from "../main/Main";
 
 const WeatherContent = () => {
-  const APIHasError = false;
-  const placeIsAvailable = true;
+  const { isLoading, weatherData, hasError } = useWeather();
 
-  if (APIHasError) {
-    return (
-      <main className="hero error-hero">
-        <img
-          src={errorIcon}
-          alt=""
-          aria-hidden="true"
-          className="error-image"
-        />
-        <h1>Something went wrong</h1>
-        <p>
-          We couldn't connect to the server (API error). please try again in a
-          few moments.
-        </p>
+  let placeIsAvailable = true;
 
-        <button>
-          <img src={retryIcon} alt="" aria-hidden="true" /> retry
-        </button>
-      </main>
+  if (!isLoading) {
+    placeIsAvailable = !weatherData.reason?.includes(
+      "Latitude must be in range of -90 to 90°",
     );
+
+    if (
+      hasError &&
+      !weatherData.reason?.includes("Latitude must be in range of -90 to 90°")
+    ) {
+      return (
+        <main className="hero error-hero">
+          <img
+            src={errorIcon}
+            alt=""
+            aria-hidden="true"
+            className="error-image"
+          />
+          <h1>Something went wrong</h1>
+          <p>
+            We couldn't connect to the server (API error). please try again in a
+            few moments.
+          </p>
+
+          <button>
+            <img src={retryIcon} alt="" aria-hidden="true" /> retry
+          </button>
+        </main>
+      );
+    }
   }
 
   const containerClasses = placeIsAvailable ? "success" : "no-result-container";

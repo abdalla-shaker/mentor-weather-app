@@ -1,44 +1,75 @@
+import useWeather from "../../hooks/useWeather";
+
 const TodayDetails = () => {
+  const { isLoading } = useWeather();
+
   return (
     <article
       className="today-details"
-      aria-busy="true"
-      aria-label="loading current weather details"
+      aria-busy={isLoading}
+      aria-label={
+        isLoading
+          ? "Loading current weather details"
+          : "Current weather details"
+      }
     >
       {/* FOR THE ARTICLE ELEMENT THE ARIA BUSY AND ARIA LABEL VALUES SHOULD CHANGE WHEN THE LOADING STATE IS FALSE. */}
-
-      {/* AS FOR THE SPAN BELOW IT SHOULD BE RENDER CONDITIONALLY BECAUSE IF THE LOADING STATE IS FALSE IT SHOULD NOT BE IN THE DOM */}
-      <span className="visually-hidden" role="status">
-        loading weather information...
-      </span>
+      {isLoading && (
+        <span className="visually-hidden" role="status">
+          loading weather information...
+        </span>
+      )}
 
       <header
-        className="today-details-screen loading"
-        aria-hidden="true"
+        className={`today-details-screen ${isLoading ? "loading" : "fetched-successfully"}`}
+        aria-hidden={isLoading}
       ></header>
-      <dl className="details-list" aria-hidden="true">
-        <div className="details-list--item loading">
-          <dt className="title">Feels like</dt>
+      <dl
+        className="details-list"
+        aria-hidden={isLoading ? "true" : undefined}
+        aria-live={isLoading ? undefined : "polite"}
+      >
+        <div
+          className={`details-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
+        >
+          <dt className="title" id="lbl-feels-like">
+            Feels like
+          </dt>
           <dd>
-            <output>0</output>
+            <output aria-labelledby="lbl-feels-like">0</output>
           </dd>
         </div>
-        <div className="details-list--item loading">
-          <dt className="title">Humidity</dt>
+
+        <div
+          className={`details-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
+        >
+          <dt className="title" id="lbl-humidity">
+            Humidity
+          </dt>
           <dd>
-            <output>0</output>
+            <output aria-labelledby="lbl-humidity">0</output>
           </dd>
         </div>
-        <div className="details-list--item loading">
-          <dt className="title">Wind</dt>
+
+        <div
+          className={`details-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
+        >
+          <dt className="title" id="lbl-wind">
+            Wind
+          </dt>
           <dd>
-            <output>0</output>
+            <output aria-labelledby="lbl-wind">0</output>
           </dd>
         </div>
-        <div className="details-list--item loading">
-          <dt className="title">Precipitation</dt>
+
+        <div
+          className={`details-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
+        >
+          <dt className="title" id="lbl-precipitation">
+            Precipitation
+          </dt>
           <dd>
-            <output>0</output>
+            <output aria-labelledby="lbl-precipitation">0</output>
           </dd>
         </div>
       </dl>
