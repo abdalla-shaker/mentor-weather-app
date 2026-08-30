@@ -194,6 +194,54 @@ ul {
   border-radius: 2.4rem;
   margin-bottom: 3.2rem;
   border: 1px solid var(--neutral-600);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 2.4rem;
+}
+
+.today-details-screen .today-screen {
+  position: absolute;
+  z-index: -1;
+  isolation: isolate;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.today-details-screen .today-screen img {
+  width: 100%;
+  display: block;
+}
+
+.today-details-screen h2 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.today-details-screen p {
+  font-size: 1.4rem;
+  color: var(--neutral-200);
+}
+
+.temp-details {
+  display: flex;
+  align-items: center;
+  gap: 3.6rem;
+}
+
+.temp-details img {
+  display: block;
+  width: 96px;
+}
+
+.temp-details h3 {
+  font-size: 8.6rem;
 }
 
 .details-list {
@@ -219,12 +267,44 @@ ul {
   font-weight: 300;
 }
 
+.details-list--item h3 {
+  font-size: 1.4rem;
+}
+
+.details-list--item p {
+  font-size: 1.4rem;
+}
+
 .future-weather-details h2 {
   margin-bottom: 1.6rem;
 }
 
 .future-list--item {
   height: 192px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- 01 TYPOGRAPHY SYSTEM
+
+- FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Spacing system (px):
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/
+
+.day-icon {
+  width: 48px;
+}
+
+.temps {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .aside {
@@ -253,16 +333,6 @@ ul {
   background-color: var(--neutral-600);
 }
 
-/* --- 01 TYPOGRAPHY SYSTEM
-
-- FONT SIZE SYSTEM (px)
-10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
-
-- Spacing system (px):
-2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
-
-*/
-
 .hourly-list {
   display: flex;
   flex-direction: column;
@@ -272,11 +342,40 @@ ul {
 
 .hourly-list--item {
   width: 100%;
-  min-height: 66px;
+  padding: 1.6rem;
+
   flex-shrink: 0;
   background-color: var(--neutral-700);
   border-radius: 1rem;
   border: 1px solid var(--neutral-600);
+}
+
+.hourly-list--item .list-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hourly-list--item.loading {
+  padding: 3.2rem;
+}
+
+.hourly-list--item .date-detail {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.hourly-list--item .date-detail p {
+  font-size: 1.8rem;
+}
+
+.hourly-list--item .temp {
+  font-size: 1.6rem;
+}
+
+.hourly-list--item img {
+  width: 32px;
 }
 
 .visually-hidden {

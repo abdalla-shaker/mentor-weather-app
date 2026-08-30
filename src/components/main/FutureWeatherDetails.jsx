@@ -1,7 +1,10 @@
+import LoadingFutureDetails from "./LoadingFutureDetails.jsx";
+import FutureData from "./FutureData.jsx";
+
 import useWeather from "../../hooks/useWeather.jsx";
 
 const FutureWeatherDetails = () => {
-  const { isLoading } = useWeather();
+  const { isLoading, weatherData } = useWeather();
 
   return (
     <article
@@ -24,27 +27,15 @@ const FutureWeatherDetails = () => {
         aria-hidden={isLoading ? "true" : undefined}
         aria-live={isLoading ? undefined : "polite"}
       >
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
-        <li
-          className={`details-list--item future-list--item ${isLoading ? "loading" : "fetched-successfully"}`}
-        ></li>
+        {isLoading && <LoadingFutureDetails />}
+
+        {!isLoading && (
+          <>
+            {weatherData.daily.temperature_2m_max.map((temp, index) => {
+              return <FutureData key={index} temp={temp} index={index} />;
+            })}
+          </>
+        )}
       </ul>
     </article>
   );
