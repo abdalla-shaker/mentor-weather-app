@@ -1,9 +1,9 @@
 import Output from "./Output.jsx";
 
-import useWeather from "../../hooks/useWeather";
+import { useSelector } from "react-redux";
 
 const DetailList = () => {
-  const { isLoading } = useWeather();
+  const isLoading = useSelector((state) => state.weather.isLoading);
 
   return (
     <dl

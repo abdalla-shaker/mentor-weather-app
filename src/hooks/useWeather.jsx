@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { weatherActions } from "../store/store.js";
 
 const useWeather = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [weatherData, setWeatherData] = useState({});
-  const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(weatherActions.setIsLoading(true));
     const fetchingData = async () => {
       try {
         const response = await fetch(
@@ -15,27 +15,23 @@ const useWeather = () => {
 
         if (!response.ok) {
           const data = await response.json();
-          console.log(data);
-          setWeatherData(data);
+          dispatch(weatherActions.setWeatherData({ weatherData: data }));
           throw new Error("Error found, please try again later.");
         }
 
         const data = await response.json();
 
-        setIsLoading(false);
-        setWeatherData(data);
+        dispatch(weatherActions.setIsLoading(false));
+        dispatch(weatherActions.setWeatherData({ weatherData: data }));
       } catch (err) {
-        console.log(err);
-        setIsLoading(false);
-        setHasError(true);
-        setErrorMessage(err);
+        dispatch(weatherActions.setIsLoading(false));
+        dispatch(weatherActions.setHasError(true));
+        dispatch(weatherActions.setErrorMessage({ message: err.message }));
       }
     };
 
     fetchingData();
-  }, []);
-
-  return { isLoading, weatherData, errorMessage, hasError };
+  }, [dispatch]);
 };
 
 export default useWeather;

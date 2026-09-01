@@ -1,11 +1,13 @@
 import HourlyListIsLoading from "./HourlyListIsLoading.jsx";
-import useWeather from "../../hooks/useWeather.jsx";
+
 import { getIcon } from "../../utils/getIcon.js";
 import { formatTime } from "../../utils/formatDate.js";
 import dropDown from "../../assets/images/icon-dropdown.svg";
+import { useSelector } from "react-redux";
 
 const Aside = () => {
-  const { isLoading, weatherData } = useWeather();
+  const isLoading = useSelector((state) => state.weather.isLoading);
+  const weatherData = useSelector((state) => state.weather.weatherData);
 
   const hourlyTemps = weatherData?.hourly?.temperature_2m || [];
   const hourlyCodes = weatherData?.hourly?.weather_code || [];

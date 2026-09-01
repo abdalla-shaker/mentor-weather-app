@@ -1,10 +1,11 @@
 import LoadingFutureDetails from "./LoadingFutureDetails.jsx";
 import FutureData from "./FutureData.jsx";
 
-import useWeather from "../../hooks/useWeather.jsx";
+import { useSelector } from "react-redux";
 
 const FutureWeatherDetails = () => {
-  const { isLoading, weatherData } = useWeather();
+  const weatherData = useSelector((state) => state.weather.weatherData);
+  const isLoading = useSelector((state) => state.weather.isLoading);
 
   return (
     <article
@@ -31,7 +32,7 @@ const FutureWeatherDetails = () => {
 
         {!isLoading && (
           <>
-            {weatherData.daily.temperature_2m_max.map((temp, index) => {
+            {weatherData.daily?.temperature_2m_max.map((temp, index) => {
               return <FutureData key={index} temp={temp} index={index} />;
             })}
           </>

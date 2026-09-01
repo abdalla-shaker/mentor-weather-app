@@ -5,20 +5,24 @@ import retryIcon from "../../assets/images/icon-retry.svg";
 import Aside from "../aside/Aside";
 import Hero from "../hero/Hero";
 import Main from "../main/Main";
+import { useSelector } from "react-redux";
 
 const WeatherContent = () => {
-  const { isLoading, weatherData, hasError } = useWeather();
+  useWeather();
+  const weatherState = useSelector((state) => state.weather);
 
   let placeIsAvailable = true;
 
-  if (!isLoading) {
-    placeIsAvailable = !weatherData.reason?.includes(
+  if (!weatherState.isLoading) {
+    placeIsAvailable = !weatherState.weatherData.reason?.includes(
       "Latitude must be in range of -90 to 90°",
     );
 
     if (
-      hasError &&
-      !weatherData.reason?.includes("Latitude must be in range of -90 to 90°")
+      weatherState.hasError &&
+      !weatherState.weatherData.reason?.includes(
+        "Latitude must be in range of -90 to 90°",
+      )
     ) {
       return (
         <main className="hero error-hero">

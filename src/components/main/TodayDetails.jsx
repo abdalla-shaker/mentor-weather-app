@@ -1,9 +1,10 @@
-import useWeather from "../../hooks/useWeather.jsx";
+import { useSelector } from "react-redux";
+
 import TodayHeader from "./TodayHeader.jsx";
 import DetailList from "./DetailList.jsx";
 
 const TodayDetails = () => {
-  const { isLoading } = useWeather();
+  const isLoading = useSelector((state) => state.weather.isLoading);
 
   return (
     <article

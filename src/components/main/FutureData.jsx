@@ -1,10 +1,10 @@
-import useWeather from "../../hooks/useWeather.jsx";
-
+import { useSelector } from "react-redux";
 import { smallFormat } from "../../utils/formatDate.js";
 import { getIcon } from "../../utils/getIcon.js";
 
 const FutureData = ({ temp, index }) => {
-  const { isLoading, weatherData } = useWeather();
+  const isLoading = useSelector((state) => state.weather.isLoading);
+  const weatherData = useSelector((state) => state.weather.weatherData);
 
   const dateLabel = smallFormat(weatherData.daily?.time[index]);
   const maxTemp = `${temp}${weatherData.daily_units?.temperature_2m_max}`;
