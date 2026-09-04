@@ -1,5 +1,3 @@
-import useWeather from "../../hooks/useWeather.jsx";
-
 import errorIcon from "../../assets/images/icon-error.svg";
 import retryIcon from "../../assets/images/icon-retry.svg";
 import Aside from "../aside/Aside";
@@ -8,7 +6,6 @@ import Main from "../main/Main";
 import { useSelector } from "react-redux";
 
 const WeatherContent = () => {
-  useWeather();
   const weatherState = useSelector((state) => state.weather);
 
   let placeIsAvailable = true;
