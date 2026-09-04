@@ -17,6 +17,14 @@ export const smallFormat = (currentDate) => {
   });
 };
 
+export const dayFormat = (currentDate) => {
+  const date = new Date(currentDate);
+
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+  });
+};
+
 export const formatTime = (currentTime) => {
   const [hour, min] = currentTime.split("T")[1].split(":");
   const date = new Date();

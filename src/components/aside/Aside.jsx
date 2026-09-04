@@ -1,18 +1,26 @@
-import HourlyListIsLoading from "./HourlyListIsLoading.jsx";
-
-import { getIcon } from "../../utils/getIcon.js";
-import { formatTime } from "../../utils/formatDate.js";
-import dropDown from "../../assets/images/icon-dropdown.svg";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+
+import HourlyList from "./HourlyList";
+import { dayFormat } from "../../utils/formatDate";
+
+import dropDown from "../../assets/images/icon-dropdown.svg";
 
 const Aside = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const isLoading = useSelector((state) => state.weather.isLoading);
   const weatherData = useSelector((state) => state.weather.weatherData);
 
-  const hourlyTemps = weatherData?.hourly?.temperature_2m || [];
-  const hourlyCodes = weatherData?.hourly?.weather_code || [];
-  const hourlyTimes = weatherData?.hourly?.time || [];
-  const unit = weatherData?.hourly_units?.temperature_2m || "°C";
+  const [dayDate, setDayDate] = useState(weatherData.daily?.time[0]);
+
+  const getDay = (dayDate) => {
+    setDayDate(dayDate);
+  };
+
+  const listHandler = () => {
+    setIsOpen((prevValue) => !prevValue);
+  };
 
   return (
     <aside
@@ -29,63 +37,40 @@ const Aside = () => {
       <header className="aside-header">
         <h2 id="hourly-heading">Hourly forecast</h2>
 
-        <button
-          className="forecast-list-btn"
-          type="button"
-          aria-haspopup="listbox"
-          aria-expanded="false"
-          aria-disabled={isLoading}
-          disabled={isLoading}
-          aria-label="Select day for hourly forecast"
-        >
-          -
-          <img src={dropDown} alt="" aria-hidden="true" />
-        </button>
+        <div className="daily-time-container">
+          <button
+            onClick={listHandler}
+            className="forecast-list-btn"
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-disabled={isLoading}
+            disabled={isLoading}
+            aria-label="Select day for hourly forecast"
+          >
+            {isLoading && <>-</>}
+            {!isLoading &&
+              dayFormat(dayDate ? dayDate : weatherData.daily.time[0])}
+            <img src={dropDown} alt="" aria-hidden="true" />
+          </button>
+
+          {isOpen && (
+            <ul className="daily-list">
+              {weatherData.daily?.time.map((day) => {
+                return (
+                  <li key={day} className="daily-list--item">
+                    <button onClick={getDay.bind(null, day)}>
+                      {dayFormat(day)}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </header>
 
-      <ul className="hourly-list" aria-live={isLoading ? undefined : "polite"}>
-        {isLoading && <HourlyListIsLoading />}
-
-        {!isLoading &&
-          hourlyTemps.slice(0, 8).map((temp, index) => {
-            const imageName = getIcon(hourlyCodes[index]);
-            const timeFormatted = formatTime(hourlyTimes[index]).split(", ")[1];
-            const roundTemp = Math.round(temp);
-
-            return (
-              <li
-                className="hourly-list--item"
-                key={hourlyTimes[index] || index}
-              >
-                <article
-                  className="list-container"
-                  aria-label={`Forecast for ${timeFormatted}`}
-                >
-                  <div className="date-detail">
-                    <img
-                      src={`/icons/${imageName}.webp`}
-                      alt={
-                        imageName
-                          ? imageName.replace(/-/g, " ")
-                          : "Weather icon"
-                      }
-                    />
-                    <p>
-                      <time dateTime={hourlyTimes[index]}>{timeFormatted}</time>
-                    </p>
-                  </div>
-                  <p className="temp">
-                    <span>
-                      {roundTemp}
-                      {unit}
-                    </span>
-                    <span className="visually-hidden">{roundTemp} degrees</span>
-                  </p>
-                </article>
-              </li>
-            );
-          })}
-      </ul>
+      <HourlyList dayDate={dayDate} />
     </aside>
   );
 };
