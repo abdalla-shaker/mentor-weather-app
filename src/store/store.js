@@ -1,6 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const weatherInitialState = {
+  location: "Alexandria",
   isLoading: true,
   weatherData: {},
   hasError: false,
@@ -14,6 +15,10 @@ const weatherSlice = createSlice({
   name: "weather",
   initialState: weatherInitialState,
   reducers: {
+    searchLocation(state, action) {
+      state.location = action.payload;
+    },
+
     convertToMM(state) {
       if (!state.isInch) {
         return;

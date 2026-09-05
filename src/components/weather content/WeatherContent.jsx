@@ -8,39 +8,33 @@ import { useSelector } from "react-redux";
 const WeatherContent = () => {
   const weatherState = useSelector((state) => state.weather);
 
-  let placeIsAvailable = true;
+  const placeIsAvailable = weatherState.isLoading
+    ? true
+    : !weatherState.weatherData.placeIsNotAvailable;
 
-  if (!weatherState.isLoading) {
-    placeIsAvailable = !weatherState.weatherData.reason?.includes(
-      "Latitude must be in range of -90 to 90°",
+  if (
+    !weatherState.isLoading &&
+    weatherState.message === "Error found, please try again later."
+  ) {
+    return (
+      <main className="hero error-hero">
+        <img
+          src={errorIcon}
+          alt=""
+          aria-hidden="true"
+          className="error-image"
+        />
+        <h1>Something went wrong</h1>
+        <p>
+          We couldn't connect to the server (API error). please try again in a
+          few moments.
+        </p>
+
+        <button>
+          <img src={retryIcon} alt="" aria-hidden="true" /> retry
+        </button>
+      </main>
     );
-
-    if (
-      weatherState.hasError &&
-      !weatherState.weatherData.reason?.includes(
-        "Latitude must be in range of -90 to 90°",
-      )
-    ) {
-      return (
-        <main className="hero error-hero">
-          <img
-            src={errorIcon}
-            alt=""
-            aria-hidden="true"
-            className="error-image"
-          />
-          <h1>Something went wrong</h1>
-          <p>
-            We couldn't connect to the server (API error). please try again in a
-            few moments.
-          </p>
-
-          <button>
-            <img src={retryIcon} alt="" aria-hidden="true" /> retry
-          </button>
-        </main>
-      );
-    }
   }
 
   const containerClasses = placeIsAvailable ? "success" : "no-result-container";

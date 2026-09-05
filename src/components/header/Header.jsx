@@ -14,10 +14,10 @@ const Header = () => {
   const isFahrenheit = useSelector((state) => state.weather.isFahrenheit);
   const isMPH = useSelector((state) => state.weather.isMPH);
   const isInch = useSelector((state) => state.weather.isInch);
+  const location = useSelector((state) => state.weather.location);
 
   useWeather(
-    30.04,
-    31.23,
+    location,
     isFahrenheit ? "fahrenheit" : "celsius",
     isMPH ? "mph" : "kmh",
     isInch ? "inch" : "mm",

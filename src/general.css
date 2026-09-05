@@ -101,6 +101,7 @@ ul {
   background-color: var(--neutral-800);
   padding: 8px;
   border-radius: 8px;
+  z-index: 1;
 }
 
 .header .units-menu fieldset {
@@ -161,8 +162,12 @@ ul {
   display: flex;
   gap: 1.6rem;
   align-items: stretch;
-  justify-content: center;
+
+  margin: 0 auto;
   margin-bottom: 4.8rem;
+  width: 95%;
+  max-width: 590px;
+  position: relative;
 }
 
 .form-control {
@@ -172,8 +177,43 @@ ul {
   background-color: var(--neutral-800);
   padding: 1.4rem 2.4rem;
   border-radius: 1.2rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.search-history {
+  background-color: var(--neutral-800);
+  padding: 1rem;
+  border-radius: 1.2rem;
   width: 95%;
   max-width: 480px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  position: absolute;
+  z-index: 3;
+
+  top: 120%;
+  left: 0;
+}
+
+.search-history button {
+  background-color: unset;
+  color: var(--neutral-0);
+  border: 1px solid var(--neutral-800);
+  text-align: left;
+  font-size: 1.6rem;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+}
+
+.search-history button:hover {
+  background-color: var(--neutral-700);
+  border-color: var(--neutral-600);
 }
 
 .form-control:focus-within {

@@ -22,7 +22,9 @@ const TodayHeader = () => {
               <img src={mobileBG} alt="sky image" />
             </picture>
             <div className="place-details">
-              <h2>{weatherData.timezone?.split("/").join(", ")}</h2>
+              <h2>
+                {weatherData.locationName}, {weatherData.locationCountry}
+              </h2>
               <p>{formatDate(weatherData.current?.time)}</p>
             </div>
             <div className="temp-details">

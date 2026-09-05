@@ -18,13 +18,13 @@ const HourlyList = ({ dayDate }) => {
     const { time, temperature_2m, weather_code } = weatherData.hourly;
     unit = weatherData.hourly_units?.temperature_2m || "°C";
 
-    // Locate start index for dayDate (e.g. "2026-09-04"), default to 0 if match fails or dayDate is empty
+    
     const startIndex = dayDate
       ? time.findIndex((t) => t.startsWith(dayDate))
       : 0;
     const actualIndex = startIndex !== -1 ? startIndex : 0;
 
-    // Grab 24 hours for that day and step every 3 hours (8 items total)
+    
     const dayTimes = time.slice(actualIndex, actualIndex + 24);
     const dayTemps = temperature_2m.slice(actualIndex, actualIndex + 24);
     const dayCodes = weather_code.slice(actualIndex, actualIndex + 24);
