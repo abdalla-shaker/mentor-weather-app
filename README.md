@@ -1,116 +1,159 @@
-# Frontend Mentor - Weather app
+# Weather App
 
-![Design preview for the Weather app coding challenge](./preview.jpg)
+A responsive weather application built with React that allows users to search for locations and view current weather conditions, detailed weather information, and hourly forecasts.
 
-## Welcome! 👋
+The app includes loading and error states, customizable weather units, recent search autocomplete, and responsive layouts for mobile, tablet, and desktop screens.
 
-Thanks for checking out this coding challenge.
+## Preview
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+![Weather App Screenshot](./public/preview.jpg)
 
-**To do this challenge, you need a good understanding of HTML, CSS, and JavaScript.**
+## Live Demo
 
-## The challenge
+[View the live website](https://abdalla-shaker.github.io/mentor-weather-app)
 
-Build a weather app using the [Open-Meteo API](https://open-meteo.com/) and get it looking as close to the design as possible.
+## Built With
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+- React
+- Redux Toolkit
+- JavaScript
+- HTML5
+- CSS3
+- REST API
+- Local Storage
+- Vite
 
-Your users should be able to:
+## Features
 
-- Search for weather information by entering a location in the search bar
-- View current weather conditions including temperature, weather icon, and location details
-- See additional weather metrics like "feels like" temperature, humidity percentage, wind speed, and precipitation amounts
-- Browse a 7-day weather forecast with daily high/low temperatures and weather icons
-- View an hourly forecast showing temperature changes throughout the day
-- Switch between different days of the week using the day selector in the hourly forecast section
-- Toggle between Imperial and Metric measurement units via the units dropdown
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+- Search for locations and fetch their weather data
+- Display current weather conditions
+- Display feels-like temperature, humidity, wind speed, and precipitation
+- View hourly weather forecasts in 3-hour intervals
+- View hourly forecasts for the current day and the following 6 days
+- Switch between different temperature, precipitation, and wind speed units
+- Automatically refetch weather data when units are changed
+- Recent search autocomplete
+- Store the last 4 searched locations in local storage
+- Automatically remove invalid locations from search history
+- Handle invalid or non-existent locations
+- Handle API errors separately from location errors
+- Loading states while weather data is being fetched
+- Accessible loading and error states for screen readers
+- Fully responsive design for different screen sizes
 
-## Getting started
+## State Management
 
-### What's included
+The application uses **Redux Toolkit** for managing global application state.
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+The weather-related state includes:
 
-**In your download:**
-- Mobile and desktop designs (JPG format)
-- All required assets in the `/assets` folder
-- Variable and static font files (or link to Google Fonts)
-- `style-guide.md` with colors, fonts, and other design specs
+- Weather data
+- Loading state
+- Error state
+- Selected weather units
+- Search state
+- Recent search history
 
-**Want more accurate builds?** The designs are in JPG static format, which means you'll need to use your best judgment for styles such as `font-size`, `padding`, and `margin`. If you'd like the Figma design file to help build a more accurate solution faster, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+Using Redux Toolkit helped keep the state management centralized and made it easier for different components to access and update shared data.
 
-### API setup
+## Weather Data
 
-This project uses the [Open-Meteo API](https://open-meteo.com/) to fetch weather data.
+The application fetches weather information from a weather API based on the location entered by the user.
 
-**Good news:** Open-Meteo is completely free and doesn't require an API key! You can start making requests right away.
+The `useWeather` custom hook is responsible for handling the weather data fetching process and managing the different states throughout the request lifecycle.
 
-- **API Documentation:** [https://open-meteo.com/en/docs](https://open-meteo.com/en/docs)
-- **No rate limits** for reasonable personal use
-- Example endpoint: `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`
+The application distinguishes between:
 
-Check their documentation for all available weather parameters and location search capabilities.
+- Successful API requests
+- API errors
+- Invalid or non-existent locations
+- Loading states
 
-## Using AI coding assistants
+This allows the UI to provide a more specific message depending on what went wrong.
 
-We've included two files to help you if you're using AI coding assistants (like Claude, GitHub Copilot, Cursor, etc.) while working on this challenge:
+## Search
 
-- `AGENTS.md` - Contains detailed instructions for AI assistants on how to help you with this challenge. It's tailored to this challenge's difficulty level, so the AI will provide guidance appropriate to your learning stage—offering more support for beginner challenges and encouraging more independence on advanced ones.
-- `CLAUDE.md` - A pointer file that directs Claude-based tools to the AGENTS.md instructions.
+The search functionality allows users to search for a location and retrieve its weather information.
 
-**How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
+The application also keeps track of the **4 most recent valid searches** using `localStorage`.
 
-**Note:** These files are designed to help you *learn*, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+When the user starts typing, previously searched locations can be displayed as autocomplete suggestions.
 
-## Building your project
+Invalid locations are not kept in the search history and are automatically removed from `localStorage`.
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+## Unit Selection
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+Users can change the units used to display:
 
-### Want some support on the challenge?
+- Temperature
+- Precipitation
+- Wind speed
 
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+The selected units are stored in the application state. When a unit is changed, the application requests the weather data again using the newly selected units.
 
-## Deploying your project
+## Accessibility
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+Accessibility was considered throughout the application.
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+ARIA attributes are used for important dynamic states such as:
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://www.frontendmentor.io/guides/hosting-your-solution).
+- Loading
+- Errors
+- Weather data updates
 
-## Submitting your solution
+This helps communicate changes in the application's state to users who rely on screen readers.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://www.frontendmentor.io/guides/how-to-submit-solutions) for tips on how to do this.
+## Responsive Design
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+The application was designed to work across different screen sizes.
 
-**We strongly recommend overwriting this `README.md` with a custom one.** We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code. The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings.
+The layout adapts to:
 
-## Sharing your solution
+- Mobile devices
+- Tablets
+- Desktop screens
 
-There are multiple places you can share your solution:
+The weather details and hourly forecast sections adjust their layout based on the available screen space.
 
-1. Submit it on the platform and share your solution page in the **#finished-projects** channel of our [community](https://www.frontendmentor.io/community)
-2. Share on [X (formerly Twitter)](https://x.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in your post. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on [LinkedIn](https://www.linkedin.com/company/frontend-mentor/).
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+## What I Learned
 
-## Got feedback for us?
+This project helped me strengthen my understanding of React and application state management.
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+Some of the main things I practiced were:
 
-**This challenge is completely free. Please share it with anyone who will find it useful for practice.**
+- Managing global state with Redux Toolkit
+- Creating and using custom React hooks
+- Working with REST APIs
+- Handling asynchronous requests
+- Designing separate loading, success, and error states
+- Refetching API data when application state changes
+- Persisting data using `localStorage`
+- Building reusable React components
+- Making interfaces responsive
+- Improving accessibility with ARIA attributes
 
-**Have fun building!** 🚀
+## Challenges
+
+One of the main challenges was handling the different states of the weather request correctly.
+
+The application needs to distinguish between an API failure and a location that simply does not exist. I also had to make sure that the loading state was reset correctly after a request finished, regardless of whether the request succeeded or failed.
+
+Another challenge was managing the hourly forecast data across multiple days and displaying the correct 3-hour intervals for each day.
+
+Implementing unit switching also required the weather data to be fetched again whenever the selected units changed.
+
+## Continued Development
+
+Some areas I would like to continue improving include:
+
+- Improving the search experience
+- Adding more detailed weather information
+- Further improving accessibility
+- Adding additional animations and transitions
+- Optimizing API requests and application performance
+
+## Challenge
+
+This project was built as part of a Frontend Mentor challenge.
+
+[View the original challenge](https://www.frontendmentor.io/challenges/weather-app-K1FhddVm49)
