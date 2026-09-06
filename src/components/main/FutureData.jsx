@@ -21,7 +21,7 @@ const FutureData = ({ temp, index }) => {
 
       {!isLoading && (
         <img
-          src={`/icons/${imageName}.webp`}
+          src={`/mentor-weather-app/icons/${imageName}.webp`}
           alt={`${imageName} icon`}
           aria-hidden="true"
           className="day-icon"
