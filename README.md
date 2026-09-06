@@ -6,7 +6,7 @@ The app includes loading and error states, customizable weather units, recent se
 
 ## Preview
 
-![Weather App Screenshot](./public/preview.jpg)
+![Weather App Screenshot](public/preview.jpg)
 
 ## Live Demo
 
