@@ -37,7 +37,11 @@ const Aside = () => {
       <header className="aside-header">
         <h2 id="hourly-heading">Hourly forecast</h2>
 
-        <div className="daily-time-container">
+        <div
+          className="daily-time-container"
+          role="group"
+          aria-label="Daily forecast selection"
+        >
           <button
             onClick={listHandler}
             className="forecast-list-btn"
@@ -55,11 +59,15 @@ const Aside = () => {
           </button>
 
           {isOpen && (
-            <ul className="daily-list">
+            <ul className="daily-list" role="menu">
               {weatherData.daily?.time.map((day) => {
                 return (
                   <li key={day} className="daily-list--item">
-                    <button onClick={getDay.bind(null, day)}>
+                    <button
+                      onClick={getDay.bind(null, day)}
+                      role="menuitem"
+                      type="button"
+                    >
                       {dayFormat(day)}
                     </button>
                   </li>

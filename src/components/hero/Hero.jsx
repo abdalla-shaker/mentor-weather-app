@@ -68,7 +68,7 @@ const Hero = () => {
     setSearchIsOpen(true);
   };
 
-  const blueHandler = () => {
+  const blurHandler = () => {
     setTimeout(() => {
       setSearchIsOpen(false);
     }, 200);
@@ -80,16 +80,16 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <h1>How's the sky looking today?</h1>
+      <h1>How&apos;s the sky looking today?</h1>
 
       <form ref={form} onSubmit={submitSearchHandler} className="form">
-        <div className="form-control">
+        <div className="form-control" role="group">
           <label htmlFor="search">
-            <img src={searchIcon} alt="search icon" />
+            <img src={searchIcon} alt="search icon" aria-hidden="true" />
           </label>
           <input
             onFocus={focusHandler}
-            onBlur={blueHandler}
+            onBlur={blurHandler}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
@@ -97,6 +97,11 @@ const Hero = () => {
             name="search"
             placeholder="Search for a place..."
             autoComplete="off"
+            role="combobox"
+            aria-expanded={searchIsOpen && searchedTerms.length > 0}
+            aria-controls="search-history-list"
+            aria-autocomplete="list"
+            aria-haspopup="listbox"
           />
         </div>
         <button type="submit" className="form-btn">
@@ -104,9 +109,14 @@ const Hero = () => {
         </button>
 
         {searchedTerms.length > 0 && searchIsOpen && (
-          <ul className="search-history">
+          <ul
+            className="search-history"
+            id="search-history-list"
+            role="listbox"
+            aria-label="Recent searches"
+          >
             {searchedTerms.map((term) => (
-              <li key={term}>
+              <li key={term} role="option" aria-selected="false">
                 <button
                   type="button"
                   onClick={searchClickHandler.bind(null, term)}

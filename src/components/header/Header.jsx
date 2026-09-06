@@ -31,11 +31,12 @@ const Header = () => {
     <header className="header">
       <img src={logo} alt="Sun logo" />
 
-      <div className="units-container">
+      <div className="units-container" role="group" aria-label="Unit Selection">
         <button
           onClick={unitMenuButtonHandler}
           className="header--btn"
           aria-haspopup="listbox"
+          type="button"
         >
           <img src={unitsIcon} alt="" />
           <span>Units</span>

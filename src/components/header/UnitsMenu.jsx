@@ -6,7 +6,7 @@ import Imperial from "./Imperial";
 
 const UnitsMenu = () => {
   return (
-    <div className="units-menu" role="listbox">
+    <div className="units-menu" role="dialog" aria-label="Unit Settings">
       <Imperial />
 
       <Temp checkMark={checkMark} />
