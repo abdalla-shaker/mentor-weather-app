@@ -18,13 +18,11 @@ const HourlyList = ({ dayDate }) => {
     const { time, temperature_2m, weather_code } = weatherData.hourly;
     unit = weatherData.hourly_units?.temperature_2m || "°C";
 
-    
     const startIndex = dayDate
       ? time.findIndex((t) => t.startsWith(dayDate))
       : 0;
     const actualIndex = startIndex !== -1 ? startIndex : 0;
 
-    
     const dayTimes = time.slice(actualIndex, actualIndex + 24);
     const dayTemps = temperature_2m.slice(actualIndex, actualIndex + 24);
     const dayCodes = weather_code.slice(actualIndex, actualIndex + 24);
@@ -55,7 +53,7 @@ const HourlyList = ({ dayDate }) => {
               >
                 <div className="date-detail">
                   <img
-                    src={`/icons/${imageName}.webp`}
+                    src={`/mentor-weather-app/icons/${imageName}.webp`}
                     alt={
                       imageName ? imageName.replace(/-/g, " ") : "Weather icon"
                     }
