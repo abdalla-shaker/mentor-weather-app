@@ -24,7 +24,7 @@ const FutureWeatherDetails = () => {
       <h2>Daily forecast</h2>
 
       <ul
-        className="details-list future-list"
+        className="future-list"
         aria-hidden={isLoading ? "true" : undefined}
         aria-live={isLoading ? undefined : "polite"}
       >

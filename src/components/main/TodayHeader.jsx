@@ -1,7 +1,5 @@
 import { formatDate } from "../../utils/formatDate.js";
 
-import desktopBG from "../../assets/images/bg-today-large.svg";
-import mobileBG from "../../assets/images/bg-today-small.svg";
 import sunnyIcon from "../../assets/images/icon-sunny.webp";
 import { useSelector } from "react-redux";
 
@@ -12,15 +10,11 @@ const TodayHeader = () => {
   return (
     <>
       <header
-        className={`today-details-screen ${isLoading ? "loading" : "fetched-successfully"}`}
+        className={`today-details-screen ${isLoading ? "loading" : "bg"}`}
         aria-hidden={isLoading}
       >
         {!isLoading && (
           <>
-            <picture className="today-screen">
-              <source media="(min-width: 768px)" srcSet={desktopBG} />
-              <img src={mobileBG} alt="sky image" />
-            </picture>
             <div className="place-details">
               <h2>
                 {weatherData.locationName}, {weatherData.locationCountry}
